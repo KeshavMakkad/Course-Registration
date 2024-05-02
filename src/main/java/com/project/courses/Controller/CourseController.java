@@ -38,7 +38,7 @@ public class CourseController {
     }
 
     @PatchMapping("/update")
-    void updateCourse(@RequestBody Course course){
+    void updateCourse(@RequestBody Course course) {
         courseService.updateCourse(course);
     }
 
