@@ -17,7 +17,7 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/register")
     void addCourse(@RequestBody Course course){
         courseService.addCourse(course);
     }
@@ -40,6 +40,26 @@ public class CourseController {
     @PatchMapping("/update")
     void updateCourse(@RequestBody Course course){
         courseService.updateCourse(course);
+    }
+
+    @PostMapping("/addStudent")
+    void addStudentToCourse(@RequestParam long courseID, @RequestParam long studentID){
+        courseService.addStudentToCourse(courseID, studentID);
+    }
+
+    @PostMapping("/addInstructor")
+    void addInstructorToCourse(@RequestParam long courseID, @RequestParam long instructorID){
+        courseService.addInstructorToCourse(courseID, instructorID);
+    }
+
+    @DeleteMapping("/removeStudent")
+    void removeStudentFromCourse(@RequestParam long courseID, @RequestParam long studentID){
+        courseService.removeStudentFromCourse(courseID, studentID);
+    }
+
+    @DeleteMapping("/removeInstructor")
+    void removeInstructorFromCourse(@RequestParam long courseID, @RequestParam long instructorID){
+        courseService.removeInstructorFromCourse(courseID, instructorID);
     }
 
 

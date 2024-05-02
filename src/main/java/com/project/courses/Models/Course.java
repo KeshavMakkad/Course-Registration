@@ -23,4 +23,8 @@ public class Course {
 //    @ManyToOne
     private String courseDepartment;
     private int coursePrice;
+    @ElementCollection
+    private List<Long> students;
+    @ElementCollection
+    private List<Long> instructors;
 }
