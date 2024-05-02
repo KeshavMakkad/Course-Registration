@@ -33,5 +33,8 @@ public class StudentController {
         return studentService.getStudentDetails(ID);
     }
 
-
+    @GetMapping("/courses/{ID}")
+    void getStudentCourses(@PathVariable long ID){
+        studentService.getStudentCourses(ID);
+    }
 }

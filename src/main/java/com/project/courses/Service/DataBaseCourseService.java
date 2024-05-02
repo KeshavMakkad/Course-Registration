@@ -7,22 +7,22 @@ import com.project.courses.Models.Student;
 import com.project.courses.Repositiries.CourseRepo;
 import com.project.courses.Repositiries.InstructorRepo;
 import com.project.courses.Repositiries.StudentRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class DataBaseCourseService implements com.project.courses.Service.CourseService {
 
     InstructorRepo instructorRepo;
     CourseRepo courseRepo;
     StudentRepo studentRepo;
-    DataBaseCourseService(CourseRepo courseRepo, StudentRepo studentRepo, InstructorRepo instructorRepo){
-        this.instructorRepo = instructorRepo;
-        this.courseRepo = courseRepo;
-        this.studentRepo = studentRepo;
-    }
+    DataBaseStudentService DBStudentService;
+    InstructorService instructorService;
+    DataBaseInstructorService DBInstructorService;
 
     @Override
     public void deleteCourse(long ID){
@@ -69,21 +69,23 @@ public class DataBaseCourseService implements com.project.courses.Service.Course
         List<Long> currentStudents = course.get().getStudents();
         currentStudents.add(studentID);
         courseRepo.save(course.get());
+        DBStudentService.updateStudentCources(student.get(), courseID, "add");
     }
 
     @Override
-    public void addInstructorToCourse(long courseID, long instructorID){
+    public void addInstructorToCourse(long courseID, long instructorID) {
         Optional<Course> course = courseRepo.findById(courseID);
-        if(!course.isPresent()){
+        if (!course.isPresent()) {
             throw new RuntimeException("Course not found");
         }
         Optional<Instructor> instructor = instructorRepo.findById(instructorID);
-        if(!instructor.isPresent()){
+        if (!instructor.isPresent()) {
             throw new RuntimeException("Instructor not found");
         }
         List<Long> currentInstructors = course.get().getInstructors();
         currentInstructors.add(instructorID);
         courseRepo.save(course.get());
+        DBInstructorService.updateInstructorCourses(instructor.get(), courseID, "add");
     }
 
     public void removeStudentFromCourse(long courseID, long studentID){
@@ -98,6 +100,7 @@ public class DataBaseCourseService implements com.project.courses.Service.Course
         List<Long> currentStudents = course.get().getStudents();
         currentStudents.remove(studentID);
         courseRepo.save(course.get());
+        DBStudentService.updateStudentCources(student.get(), courseID, "remove");
     }
 
     public void removeInstructorFromCourse(long courseID, long instructorID){
@@ -112,6 +115,7 @@ public class DataBaseCourseService implements com.project.courses.Service.Course
         List<Long> currentInstructors = course.get().getInstructors();
         currentInstructors.remove(instructorID);
         courseRepo.save(course.get());
+        DBInstructorService.updateInstructorCourses(instructor.get(), courseID, "remove");
     }
 
 }

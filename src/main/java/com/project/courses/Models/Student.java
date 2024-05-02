@@ -1,9 +1,6 @@
 package com.project.courses.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +22,6 @@ public class Student{
     private long studentPhoneNumber;
 
     private String dateOfJoining;
+    @ElementCollection
+    private List<Long> courses;
 }

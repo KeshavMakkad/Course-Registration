@@ -23,4 +23,7 @@ public class Instructor{
 //    @ElementCollection
     private String instructorDepartment;
     private long salary;
+    @ElementCollection
+    private List<Long> courses;
+
 }
