@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class InstructorNotFound extends RuntimeException{
 
-    private Long id;
+    private final Long id;
     public InstructorNotFound(Long id, String message){
         super(message);
         this.id = id;
