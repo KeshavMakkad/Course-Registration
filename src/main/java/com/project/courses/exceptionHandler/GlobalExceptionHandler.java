@@ -19,15 +19,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(exceptionDto);
     }
 
-
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ExceptionDTO> handleGeneralException() {
-//        ExceptionDTO exceptionDto = new ExceptionDTO();
-//        exceptionDto.setMessage(" Exception Found");
-//        exceptionDto.setResolution("solve exception");
-//        return ResponseEntity.status(400).body(exceptionDto);
-//    }
-
     @ExceptionHandler(BadRequest.class)
     public ResponseEntity<ExceptionDTO> BadRequest() {
         ExceptionDTO exceptionDto = new ExceptionDTO();
